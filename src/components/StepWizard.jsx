@@ -124,7 +124,7 @@ const StepWizard = () => {
           <button
             type="button"
             onClick={handlePrev}
-            className="btn btn-secondary"
+            className="btn"
             disabled={currentStep === 1 || isSubmitting}
           >
             Previous
