@@ -1,38 +1,305 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.app {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--spacing-xl) 0;
+  background-color: var(--bg-light);
+}
+
+/* Loading Spinner */
+.spinner {
+  border: 3px solid var(--primary-light);
+  border-top: 3px solid var(--primary);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn var(--transition-fast) var(--easing);
+}
+
+.modal {
+  background-color: var(--bg-white);
+  border-radius: 8px;
+  padding: var(--spacing-xl);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideIn var(--transition-normal) var(--easing);
+}
+
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: var(--primary-light);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: var(--spacing-lg) 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--primary);
+  transition: width var(--transition-slow) var(--easing);
+}
+
+/* Steps */
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+  margin: var(--spacing-xl) 0;
+  position: relative;
+}
+
+.steps-container::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--primary-light);
+  z-index: 1;
+}
+
+.step {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 2;
+  flex: 1;
+}
+
+.step-number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--bg-white);
+  border: 3px solid var(--primary-light);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all var(--transition-normal) var(--easing);
+  margin-bottom: var(--spacing-sm);
+}
+
+.step.active .step-number {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.step.completed .step-number {
+  border-color: var(--secondary);
+  background-color: var(--secondary);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.step-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  text-align: center;
+  transition: color var(--transition-normal) var(--easing);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.step.active .step-label {
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+/* Form Steps */
+.form-step {
+  background-color: var(--bg-white);
+  border-radius: 8px;
+  padding: var(--spacing-xl);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  animation: fadeIn var(--transition-normal) var(--easing);
+}
+
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border);
+}
+
+/* Table Styles */
+.table-container {
+  overflow-x: auto;
+  background-color: var(--bg-white);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 600;
+  text-align: left;
+  padding: var(--spacing-md);
+  border-bottom: 2px solid var(--primary);
+}
+
+.table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--border);
+}
+
+.table tr:hover {
+  background-color: var(--bg-gray);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+/* File Upload */
+.file-upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: var(--spacing-xl);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-normal) var(--easing);
+  background-color: var(--bg-gray);
+}
+
+.file-upload-area:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.file-upload-area.active {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.file-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.file-item {
+  width: 150px;
+  background-color: var(--bg-gray);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform var(--transition-normal) var(--easing);
+}
+
+.file-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.file-icon {
+  font-size: 48px;
+  color: var(--primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.file-name {
+  font-size: var(--font-size-sm);
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Alert */
+.alert {
+  padding: var(--spacing-md);
+  border-radius: 4px;
+  margin-bottom: var(--spacing-lg);
+  animation: slideIn var(--transition-normal) var(--easing);
+}
+
+.alert-success {
+  background-color: rgba(46, 125, 50, 0.1);
+  border-left: 4px solid var(--secondary);
+  color: var(--secondary);
+}
+
+.alert-danger {
+  background-color: rgba(211, 47, 47, 0.1);
+  border-left: 4px solid var(--danger);
+  color: var(--danger);
+}
+
+.alert-info {
+  background-color: rgba(0, 102, 179, 0.1);
+  border-left: 4px solid var(--primary);
+  color: var(--primary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    padding: var(--spacing-md) 0;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .form-step {
+    padding: var(--spacing-md);
+  }
+  
+  .steps-container {
+    margin: var(--spacing-lg) 0;
+  }
+  
+  .step-number {
+    width: 36px;
+    height: 36px;
+    font-size: var(--font-size-sm);
+  }
+  
+  .step-label {
+    font-size: var(--font-size-xs);
+  }
+  
+  .step-actions {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .step-actions .btn {
+    width: 100%;
   }
 }
