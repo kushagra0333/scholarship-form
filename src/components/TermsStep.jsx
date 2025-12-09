@@ -99,22 +99,7 @@ const TermsStep = () => {
         )}
       </div>
 
-      <div className="d-flex gap-2 justify-content-center">
-        <button
-          type="button"
-          onClick={handleAccept}
-          className="btn btn-success"
-        >
-          Accept Terms
-        </button>
-        <button
-          type="button"
-          onClick={handleDecline}
-          className="btn btn-danger"
-        >
-          Decline Terms
-        </button>
-      </div>
+      
     </div>
   );
 };
